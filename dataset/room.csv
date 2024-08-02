@@ -1,0 +1,9 @@
+,Room_Type,price,Beds,Utilities,_id,Maximum_Rooms,,
+0,Standard Room,100,"Bed, Bed","Utility, utility",1,40,,
+1,Deluxe Room,150,"Bed, Bed","Utility, utility",2,25,,100
+2,Suite,300,"Bed, Bed","Utility, utility",3,10,,
+3,Executive Room,200,"Bed, Bed","Utility, utility",4,10,,
+4,Family Room,250,"Bed, Bed","Utility, utility",5,5,,
+5,Presidential Suite,350,"Bed, Bed","Utility, utility",6,1,,
+6,Pet Friendly room,225,"Bed, Bed","Utility, utility",7,5,,
+7,King Room,125,"Bed, Bed","Utility, utility",8,40,,

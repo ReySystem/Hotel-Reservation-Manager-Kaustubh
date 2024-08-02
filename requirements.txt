@@ -1,0 +1,9 @@
+Flask==3.0.3
+Flask_Mail==0.9.1
+passlib==1.7.4
+pymongo==3.12.0
+Faker==23.1.0
+missingno==0.5.2
+numpy==1.26.4
+pandas==2.2.2
+pycountry==23.12.11

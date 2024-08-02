@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block content %}
+<h3 style="text-align: center;">Reset Password</h1>
+<!-- Bootstrap Alert for Email Verification -->
+
+{% if notequal %}
+<div class="alert alert-warning" role="alert">
+    Both passwords must match!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+  <form id="loginForm" action="/forget" method="post">
+    <!-- Add your form fields here -->
+    <div class="form-group">
+      <label for="password">Enter your Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Enter your Password"
+        name="password"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="confpassword">Confirm your Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="confpassword"
+        placeholder="Confirm your Password"
+        name="confpassword"
+        required
+      />
+    </div>
+
+    <input type="hidden", value="{{ verification_token }}", name="token"/>
+    <div style="text-align: center;"><button type="submit" class="btn btn-primary">Submit</button></div>
+</form>
+{% endblock %}

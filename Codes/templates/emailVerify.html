@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block content %}
+<h3 style="text-align: center;">Email ID Verification</h1>
+{% if notExist %}
+<div class="alert alert-danger" role="alert">
+    Email ID does not exist!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+<!-- Bootstrap Alert for Email Verification -->
+{% if success %}
+<div class="alert alert-success" role="alert">
+    Your email ID has been verified. Pleas check your email for the verification link!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+<form id="emailVerify" action="/emailVerify" method="post">
+    <!-- Add your form fields here -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="Enter your email"
+        name="email"
+        required
+      />
+    </div>
+    <div style="text-align: center;"><button type="submit" class="btn btn-primary">Submit</button></div>
+    </form>
+{% endblock %}

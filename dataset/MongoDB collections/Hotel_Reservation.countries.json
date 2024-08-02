@@ -1,0 +1,1170 @@
+[{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362e6"
+  },
+  "Country": "Afghanistan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362e7"
+  },
+  "Country": "Albania"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362e8"
+  },
+  "Country": "Algeria"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362e9"
+  },
+  "Country": "Andorra"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362ea"
+  },
+  "Country": "Angola"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362eb"
+  },
+  "Country": "Antigua and Barbuda"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362ec"
+  },
+  "Country": "Argentina"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362ed"
+  },
+  "Country": "Armenia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362ee"
+  },
+  "Country": "Australia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362ef"
+  },
+  "Country": "Austria"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362f0"
+  },
+  "Country": "Azerbaijan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362f1"
+  },
+  "Country": "Bahamas"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362f2"
+  },
+  "Country": "Bahrain"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362f3"
+  },
+  "Country": "Bangladesh"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362f4"
+  },
+  "Country": "Barbados"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362f5"
+  },
+  "Country": "Belarus"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362f6"
+  },
+  "Country": "Belgium"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362f7"
+  },
+  "Country": "Belize"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362f8"
+  },
+  "Country": "Benin"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362f9"
+  },
+  "Country": "Bhutan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362fa"
+  },
+  "Country": "Bolivia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362fb"
+  },
+  "Country": "Bosnia and Herzegovina"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362fc"
+  },
+  "Country": "Botswana"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362fd"
+  },
+  "Country": "Brazil"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362fe"
+  },
+  "Country": "Brunei"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee362ff"
+  },
+  "Country": "Bulgaria"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36300"
+  },
+  "Country": "Burkina Faso"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36301"
+  },
+  "Country": "Burundi"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36302"
+  },
+  "Country": "Côte d'Ivoire"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36303"
+  },
+  "Country": "Cabo Verde"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36304"
+  },
+  "Country": "Cambodia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36305"
+  },
+  "Country": "Cameroon"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36306"
+  },
+  "Country": "Canada"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36307"
+  },
+  "Country": "Central African Republic"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36308"
+  },
+  "Country": "Chad"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36309"
+  },
+  "Country": "Chile"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3630a"
+  },
+  "Country": "China"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3630b"
+  },
+  "Country": "Colombia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3630c"
+  },
+  "Country": "Comoros"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3630d"
+  },
+  "Country": "Congo (Congo-Brazzaville)"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3630e"
+  },
+  "Country": "Costa Rica"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3630f"
+  },
+  "Country": "Croatia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36310"
+  },
+  "Country": "Cuba"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36311"
+  },
+  "Country": "Cyprus"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36312"
+  },
+  "Country": "Czechia (Czech Republic)"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36313"
+  },
+  "Country": "Democratic Republic of the Congo"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36314"
+  },
+  "Country": "Denmark"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36315"
+  },
+  "Country": "Djibouti"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36316"
+  },
+  "Country": "Dominica"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36317"
+  },
+  "Country": "Dominican Republic"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36318"
+  },
+  "Country": "Ecuador"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36319"
+  },
+  "Country": "Egypt"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3631a"
+  },
+  "Country": "El Salvador"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3631b"
+  },
+  "Country": "Equatorial Guinea"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3631c"
+  },
+  "Country": "Eritrea"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3631d"
+  },
+  "Country": "Estonia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3631e"
+  },
+  "Country": "Eswatini (fmr. \"Swaziland\")"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3631f"
+  },
+  "Country": "Ethiopia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36320"
+  },
+  "Country": "Fiji"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36321"
+  },
+  "Country": "Finland"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36322"
+  },
+  "Country": "France"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36323"
+  },
+  "Country": "Gabon"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36324"
+  },
+  "Country": "Gambia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36325"
+  },
+  "Country": "Georgia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36326"
+  },
+  "Country": "Germany"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36327"
+  },
+  "Country": "Ghana"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36328"
+  },
+  "Country": "Greece"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36329"
+  },
+  "Country": "Grenada"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3632a"
+  },
+  "Country": "Guatemala"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3632b"
+  },
+  "Country": "Guinea"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3632c"
+  },
+  "Country": "Guinea-Bissau"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3632d"
+  },
+  "Country": "Guyana"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3632e"
+  },
+  "Country": "Haiti"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3632f"
+  },
+  "Country": "Holy See"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36330"
+  },
+  "Country": "Honduras"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36331"
+  },
+  "Country": "Hungary"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36332"
+  },
+  "Country": "Iceland"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36333"
+  },
+  "Country": "India"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36334"
+  },
+  "Country": "Indonesia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36335"
+  },
+  "Country": "Iran"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36336"
+  },
+  "Country": "Iraq"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36337"
+  },
+  "Country": "Ireland"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36338"
+  },
+  "Country": "Israel"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36339"
+  },
+  "Country": "Italy"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3633a"
+  },
+  "Country": "Jamaica"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3633b"
+  },
+  "Country": "Japan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3633c"
+  },
+  "Country": "Jordan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3633d"
+  },
+  "Country": "Kazakhstan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3633e"
+  },
+  "Country": "Kenya"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3633f"
+  },
+  "Country": "Kiribati"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36340"
+  },
+  "Country": "Kuwait"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36341"
+  },
+  "Country": "Kyrgyzstan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36342"
+  },
+  "Country": "Laos"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36343"
+  },
+  "Country": "Latvia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36344"
+  },
+  "Country": "Lebanon"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36345"
+  },
+  "Country": "Lesotho"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36346"
+  },
+  "Country": "Liberia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36347"
+  },
+  "Country": "Libya"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36348"
+  },
+  "Country": "Liechtenstein"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36349"
+  },
+  "Country": "Lithuania"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3634a"
+  },
+  "Country": "Luxembourg"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3634b"
+  },
+  "Country": "Madagascar"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3634c"
+  },
+  "Country": "Malawi"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3634d"
+  },
+  "Country": "Malaysia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3634e"
+  },
+  "Country": "Maldives"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3634f"
+  },
+  "Country": "Mali"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36350"
+  },
+  "Country": "Malta"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36351"
+  },
+  "Country": "Marshall Islands"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36352"
+  },
+  "Country": "Mauritania"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36353"
+  },
+  "Country": "Mauritius"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36354"
+  },
+  "Country": "Mexico"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36355"
+  },
+  "Country": "Micronesia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36356"
+  },
+  "Country": "Moldova"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36357"
+  },
+  "Country": "Monaco"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36358"
+  },
+  "Country": "Mongolia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36359"
+  },
+  "Country": "Montenegro"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3635a"
+  },
+  "Country": "Morocco"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3635b"
+  },
+  "Country": "Mozambique"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3635c"
+  },
+  "Country": "Myanmar (formerly Burma)"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3635d"
+  },
+  "Country": "Namibia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3635e"
+  },
+  "Country": "Nauru"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3635f"
+  },
+  "Country": "Nepal"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36360"
+  },
+  "Country": "Netherlands"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36361"
+  },
+  "Country": "New Zealand"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36362"
+  },
+  "Country": "Nicaragua"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36363"
+  },
+  "Country": "Niger"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36364"
+  },
+  "Country": "Nigeria"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36365"
+  },
+  "Country": "North Korea"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36366"
+  },
+  "Country": "North Macedonia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36367"
+  },
+  "Country": "Norway"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36368"
+  },
+  "Country": "Oman"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36369"
+  },
+  "Country": "Pakistan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3636a"
+  },
+  "Country": "Palau"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3636b"
+  },
+  "Country": "Palestine State"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3636c"
+  },
+  "Country": "Panama"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3636d"
+  },
+  "Country": "Papua New Guinea"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3636e"
+  },
+  "Country": "Paraguay"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3636f"
+  },
+  "Country": "Peru"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36370"
+  },
+  "Country": "Philippines"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36371"
+  },
+  "Country": "Poland"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36372"
+  },
+  "Country": "Portugal"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36373"
+  },
+  "Country": "Qatar"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36374"
+  },
+  "Country": "Romania"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36375"
+  },
+  "Country": "Russia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36376"
+  },
+  "Country": "Rwanda"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36377"
+  },
+  "Country": "Saint Kitts and Nevis"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36378"
+  },
+  "Country": "Saint Lucia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36379"
+  },
+  "Country": "Saint Vincent and the Grenadines"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3637a"
+  },
+  "Country": "Samoa"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3637b"
+  },
+  "Country": "San Marino"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3637c"
+  },
+  "Country": "Sao Tome and Principe"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3637d"
+  },
+  "Country": "Saudi Arabia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3637e"
+  },
+  "Country": "Senegal"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3637f"
+  },
+  "Country": "Serbia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36380"
+  },
+  "Country": "Seychelles"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36381"
+  },
+  "Country": "Sierra Leone"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36382"
+  },
+  "Country": "Singapore"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36383"
+  },
+  "Country": "Slovakia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36384"
+  },
+  "Country": "Slovenia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36385"
+  },
+  "Country": "Solomon Islands"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36386"
+  },
+  "Country": "Somalia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36387"
+  },
+  "Country": "South Africa"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36388"
+  },
+  "Country": "South Korea"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36389"
+  },
+  "Country": "South Sudan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3638a"
+  },
+  "Country": "Spain"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3638b"
+  },
+  "Country": "Sri Lanka"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3638c"
+  },
+  "Country": "Sudan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3638d"
+  },
+  "Country": "Suriname"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3638e"
+  },
+  "Country": "Sweden"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3638f"
+  },
+  "Country": "Switzerland"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36390"
+  },
+  "Country": "Syria"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36391"
+  },
+  "Country": "Tajikistan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36392"
+  },
+  "Country": "Tanzania"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36393"
+  },
+  "Country": "Thailand"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36394"
+  },
+  "Country": "Timor-Leste"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36395"
+  },
+  "Country": "Togo"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36396"
+  },
+  "Country": "Tonga"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36397"
+  },
+  "Country": "Trinidad and Tobago"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36398"
+  },
+  "Country": "Tunisia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee36399"
+  },
+  "Country": "Turkey"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3639a"
+  },
+  "Country": "Turkmenistan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3639b"
+  },
+  "Country": "Tuvalu"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3639c"
+  },
+  "Country": "Uganda"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3639d"
+  },
+  "Country": "Ukraine"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3639e"
+  },
+  "Country": "United Arab Emirates"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee3639f"
+  },
+  "Country": "United Kingdom"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee363a0"
+  },
+  "Country": "United States of America"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee363a1"
+  },
+  "Country": "Uruguay"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee363a2"
+  },
+  "Country": "Uzbekistan"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee363a3"
+  },
+  "Country": "Vanuatu"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee363a4"
+  },
+  "Country": "Venezuela"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee363a5"
+  },
+  "Country": "Vietnam"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee363a6"
+  },
+  "Country": "Yemen"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee363a7"
+  },
+  "Country": "Zambia"
+},
+{
+  "_id": {
+    "$oid": "6619d35e45cf71e75ee363a8"
+  },
+  "Country": "Zimbabwe"
+}]

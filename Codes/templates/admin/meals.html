@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meals Table</title>
+    <!-- DataTables CSS -->
+
+    <!-- Custom fonts for this template-->
+    <link
+      href="{{ url_for('static',filename='vendor/fontawesome-free/css/all.min.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template-->
+    <link
+      href="{{ url_for('static',filename='css/sb-admin-2.min.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      href="{{ url_for('static',filename='vendor/datatables/dataTables.bootstrap4.min.css') }}"
+      rel="stylesheet"
+    />
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css"> -->
+
+    <style>
+      #loader {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.7);
+        z-index: 9999;
+        display: none;
+      }
+
+      .loader-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        color: #333;
+      }
+
+      .search_bar {
+        text-align: center;
+      }
+
+      .search_bar .search_ip {
+        height: calc(1.5em + 0.5rem + 2px);
+        padding: 1.1rem 0.5rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        border-radius: 0.2rem;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #d1d3e2;
+      }
+
+      .dataTables_filter {
+        display: none;
+      }
+
+      .add-btn {
+        background-color: #28a745; /* Green color */
+        color: white; /* Text color */
+        border: none; /* Remove border */
+        padding: 10px 20px; /* Adjust padding */
+        font-size: 16px; /* Adjust font size */
+        border-radius: 5px; /* Rounded corners */
+        transition: background-color 0.3s; /* Smooth transition */
+        margin-top: 2%;
+      }
+
+      .add-btn:hover {
+        background-color: #218838; /* Darker green color on hover */
+      }
+    </style>
+  </head>
+  <body id="page-top">
+    <div id="loader">
+      <div class="loader-text">Loading...</div>
+    </div>
+
+    <div id="wrapper">
+      <!-- Sidebar -->
+      {% include 'admin/sidebar.html' %}
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          {% include 'admin/navbar_admin.html' %}
+          <!-- Topbar -->
+          <div class="container-fluid">
+            <script>
+              // Get the URL parameters
+              const urlParams = new URLSearchParams(window.location.search);
+
+              // Check if the 'neg_val' parameter exists and its value is 'True'
+              const addMeal =
+                urlParams.has("addMeal") &&
+                urlParams.get("addMeal").toLowerCase() === "true";
+              if (addMeal) {
+                document.write(`
+                           
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                            Meal Added Successfully.
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                     
+                            `);
+
+                const urlWithoutaddMeal = window.location.href.split("?")[0];
+                history.replaceState(null, null, urlWithoutaddMeal);
+              }
+
+              // Check if the 'neg_val' parameter exists and its value is 'True'
+              const updMeal =
+                urlParams.has("updMeal") &&
+                urlParams.get("updMeal").toLowerCase() === "true";
+              if (updMeal) {
+                document.write(`
+                           
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                            Meal Details updated Successfully.
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                     
+                            `);
+
+                const urlWithoutupdMeal = window.location.href.split("?")[0];
+                history.replaceState(null, null, urlWithoutupdMeal);
+              }
+
+              // Check if the 'neg_val' parameter exists and its value is 'True'
+              const delMeal =
+                urlParams.has("delMeal") &&
+                urlParams.get("delMeal").toLowerCase() === "true";
+              if (delMeal) {
+                document.write(`
+                           
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                            Meal deleted Successfully.
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                     
+                            `);
+
+                const urlWithoutdelMeal = window.location.href.split("?")[0];
+                history.replaceState(null, null, urlWithoutdelMeal);
+              }
+            </script>
+
+            <!-- Page Heading -->
+            <div
+              class="d-sm-flex align-items-center justify-content-between mb-4"
+            >
+              <h1 class="h3 mb-0 text-gray-800" style="margin-top: 2%">
+                Meals Table
+              </h1>
+              <button class="add-btn" id="add-btn">
+                <i class="fas fa-plus"></i> Add Meal
+              </button>
+            </div>
+            <div class="search_bar">
+              <form action="/admin/meals" method="POST">
+                <input
+                  type="text"
+                  id="query"
+                  name="search_query_user"
+                  class="search_ip"
+                  required
+                />
+                <button type="submit" class="btn btn-primary">Search</button>
+              </form>
+            </div>
+            <br />
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered"
+                    id="dataTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Meal Type</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th>Meal Type</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                      </tr>
+                    </tfoot>
+                    <tbody>
+                      {% for meal in meals %}
+                      <tr>
+                        <td>{{ meal['Meal Type']}}</td>
+                        <td>{{ meal.price }}</td>
+                        <td>
+                          <a
+                            href="#"
+                            class="update-btn"
+                            data-toggle="modal"
+                            data-target="#updateMeal"
+                            data-meal="{{ meal['Meal Type'] }}"
+                            data-price="{{ meal['price'] }}"
+                            ><button type="button" class="btn btn-primary">
+                              Update
+                            </button></a
+                          >
+                          <a
+                            href="#"
+                            class="delete-btn"
+                            data-toggle="modal"
+                            data-target="#deleteMeal"
+                            data-meal="{{ meal['Meal Type'] }}"
+                            ><button type="button" class="btn btn-danger">
+                              Delete
+                            </button></a
+                          >
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="deleteMeal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete Meal</h5>
+              <button
+                class="close"
+                type="button"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">Are you sure to delete this Meal?</div>
+            <div class="modal-footer">
+              <button
+                class="btn btn-secondary"
+                type="button"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <form id="deleteForm" method="post" action="/delete_meal">
+                <input type="hidden" name="meal_type" id="mealInput" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="updateMeal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update Meal</h5>
+              <button
+                class="close"
+                type="button"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <form id="updateForm" method="post" action="/update_meal">
+              <div class="modal-body">
+                <div class="form-group row">
+                  <label
+                    for="mealInput_upd_name"
+                    class="col-sm-2 col-form-label"
+                    >Meal Type</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="meal_type"
+                      id="mealInput_upd_name"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="meal_price" class="col-sm-2 col-form-label"
+                    >Price</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="meal_price"
+                      id="mealprice"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  class="btn btn-secondary"
+                  type="button"
+                  data-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <input type="hidden" name="meal_type_old" id="mealInput_old" />
+                <button type="submit" class="btn btn-primary">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="addMeal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Meal</h5>
+              <button
+                class="close"
+                type="button"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <form id="addForm" method="post" action="/add_meal">
+              <div class="modal-body">
+                <div class="form-group row">
+                  <label for="meal_type" class="col-sm-2 col-form-label"
+                    >Meal Type</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="meal_type"
+                      id="mealInput_add_name"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="meal_price" class="col-sm-2 col-form-label"
+                    >Price</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="meal_price"
+                      id="mealprice_add"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  class="btn btn-secondary"
+                  type="button"
+                  data-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DataTables JS -->
+    <!-- Bootstrap core JavaScript-->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='vendor/jquery/jquery.min.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"
+    ></script>
+
+    <!-- Core plugin JavaScript-->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='vendor/jquery-easing/jquery.easing.min.js') }}"
+    ></script>
+
+    <!-- Custom scripts for all pages-->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='js/sb-admin-2.min.js') }}"
+    ></script>
+
+    <!-- Page level plugins -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='vendor/datatables/jquery.dataTables.min.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"
+    ></script>
+
+    <!-- Page level custom scripts -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='js/demo/datatables-demo.js') }}"
+    ></script>
+
+    <script>
+      $("#loader").show();
+      $(document).ready(function () {
+        $("#dataTable").DataTable({
+          initComplete: function (settings, json) {
+            $("#loader").hide();
+          },
+        });
+
+        // Event delegation for dynamically generated delete buttons
+        $("#dataTable").on("click", ".delete-btn", function () {
+          var meal = $(this).data("meal");
+          $("#mealInput").val(meal); // Set the value of the hidden input
+          // $('#deleteForm').attr('action', '/delete_user/' + username);
+        });
+
+        $("#dataTable").on("click", ".update-btn", function () {
+          var meal = $(this).data("meal");
+          var price = $(this).data("price"); // Corrected attribute name
+          $("#mealInput_old").val(meal);
+          $("#mealInput_upd_name").val(meal);
+          $("#mealprice").val(price); // Set the value of the price input
+        });
+
+        function openAddMealModal() {
+          $("#addMeal").modal("show"); // Show the modal
+        }
+
+        // Call the function to open the modal when button is clicked
+        document
+          .getElementById("add-btn")
+          .addEventListener("click", openAddMealModal);
+      });
+    </script>
+  </body>
+</html>

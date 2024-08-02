@@ -1,0 +1,47 @@
+<style>
+  .navbar-spacer {
+    width: 15px; /* Adjust the width for the desired space */
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="navbar-nav">
+    <a class="nav-item nav-link active" href="/">Home</a>
+    <a class="nav-item nav-link" href="/about_us">About Us</a>
+    <a class="nav-item nav-link" href="/room_options">Rooms</a>
+    <a class="nav-item nav-link" href="/meal_options">Menu</a>
+  </div>
+  <div class="navbar-nav ml-auto">
+    {% if 'username' in session %}
+    <div class="navbar dropdown">
+      <span
+        style="color: white"
+        class="dropdown-toggle"
+        id="navbarDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Hello, {{ session['username'] }}
+      </span>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="/my_bookings">Profile</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="logout">Logout</a>
+      </div>
+    </div>
+    <div class="navbar-spacer"></div>
+    {% else %}
+    <a href="login"
+      ><button class="btn btn-outline-success" type="button">Login</button></a
+    >
+    <div class="navbar-spacer"></div>
+    <a href="signup"
+      ><button class="btn btn-outline-success" type="button">Signup</button></a
+    >
+    {% endif %}
+  </div>
+</nav>
+
+<!-- Include Bootstrap JS and jQuery before this code -->

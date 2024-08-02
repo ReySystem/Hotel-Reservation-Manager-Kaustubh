@@ -1,0 +1,86 @@
+{% extends "base.html" %} {% block content %}
+<h3 style="text-align: center;">Login Form</h1>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="container">
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    Email verified. You can now log in.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+{% if notExist %}
+<div class="alert alert-danger" role="alert">
+    Incorrect Username/Email! Please try again
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+{% if unverified %}
+<div class="alert alert-danger" role="alert">
+    Your email ID is not verified. Please verify your email ID.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+{% if notPass %}
+<div class="alert alert-danger" role="alert">
+    Incorrect Password! Please try again
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+
+<!-- Bootstrap Alert for Email Verification -->
+{% if forget_success %}
+<div class="alert alert-success" role="alert">
+    Password has been successfully changed. Please login with your new credentials.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+
+<form id="loginForm" action="/login" method="post">
+    <!-- Add your form fields here -->
+    <div class="form-group">
+      <label for="username">Username or Email</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        placeholder="Enter username or email"
+        name="username"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Enter your Password"
+        name="password"
+      />
+    </div>
+    <small id="emailHelp" class="form-text text-muted" style="text-align: center;">Don't Have an Account? <a href="/signup">Signup</a></small><br>
+    <small id="emailHelp" class="form-text text-muted" style="text-align: center;">Forgot your password? <a href="/emailVerify">Reset Password</a></small><br>
+    <!-- Add more form fields as needed -->
+
+    <div style="text-align: center;"><button type="submit" class="btn btn-primary">Login</button></div>
+</form>
+{% endblock %}

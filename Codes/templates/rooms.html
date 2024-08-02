@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="{{ url_for('static',filename='vendor/fontawesome-free/css/all.min.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style>
+      /* Center align the card */
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 85vh;
+      }
+
+      .card {
+        display: flex;
+        width: 95%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        flex-direction: row;
+        max-height: 80vh;
+      }
+
+      .card-img {
+        width: 50%;
+      }
+
+      .card-content {
+        padding: 20px;
+        flex: 1;
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+        text-align: center;
+      }
+
+      .card-text {
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <br />
+    <div class="center">
+      <div class="card">
+        <div class="card-img">
+          <img
+            id="room-image"
+            src=""
+            alt="Card image"
+            style="width: 100%; height: 100%"
+          />
+        </div>
+        <div class="card-content">
+          <h2 class="card-title" style="font-size: xx-large">{{room_type}}</h2>
+          <div style="margin-bottom: 15px">
+            <h3 class="card-title" style="font-size: 20px; text-align: left">
+              Beds
+            </h3>
+            <p class="card-text" style="font-size: 20px">
+              {% for item in beds_list %}
+              <span class="badge badge-primary">{{ item }}</span>
+              {% endfor %}
+            </p>
+          </div>
+          <div style="margin-bottom: 15px">
+            <h3 class="card-title" style="font-size: 20px; text-align: left">
+              Utilities
+            </h3>
+            <p class="card-text" style="font-size: 20px">
+              {% for item in utilities_list %}
+              <span class="badge badge-primary">{{ item }}</span>
+              {% endfor %}
+            </p>
+          </div>
+          <div style="margin-bottom: 15px">
+            <h3
+              class="card-title"
+              style="font-size: 20px; text-align: left; margin-bottom: 2px"
+            >
+              Number of Guests
+            </h3>
+            {% for item in range(max_guests) %}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              width="10"
+              height="15"
+            >
+              <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+              <path
+                d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+          <div style="margin-bottom: 15px">
+            <h3 class="card-title" style="font-size: 20px; text-align: left">
+              Price
+            </h3>
+            <p class="card-text" style="font-size: 25px; font-weight: bold">
+              ${{price}}
+            </p>
+          </div>
+          <form action="/booking_form" , method="post">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                value="{{ check_in }}"
+                name="check_in"
+                readonly
+              />
+              <input
+                type="text"
+                class="form-control"
+                value="{{ check_out }}"
+                name="check_out"
+                readonly
+              />
+            </div>
+            <input type="hidden" value="{{ room_type }}" name="room_type" />
+            <input type="hidden" value="{{ max_guests }}" name="max_guests" />
+            <input type="hidden" value="{{ price }}" name="price" />
+            <button
+              class="btn btn-primary"
+              style="margin-top: 5%; width: 100%"
+              type="submit"
+            >
+              Book Now
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Get the room type value from the Jinja template
+      var roomType = "{{ room_type }}";
+      new_room = roomType.split(" ").join("+");
+
+      // Construct the Unsplash API URL with roomType as query parameter
+      var apiUrl =
+        "https://api.unsplash.com/photos/random?query=" +
+        "hotel+room" +
+        "&client_id=DT6pfSgIhwxASBHWZMDA1hzDR5Pb9H4_aAdQzxCpNto";
+      // Fetch the image from Unsplash API
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          // Extract the image URL from the response
+          var imageUrl = data.urls.regular;
+
+          // Set the src attribute of the room image
+          document.getElementById("room-image").src = imageUrl;
+        })
+        .catch((error) => {
+          console.error("Failed to fetch image from Unsplash:", error);
+          // Path to your fallback image in the static folder
+          var fallbackImageUrl =
+            "{{ url_for('static', filename='Images/fallback_room.png') }}"; // Path to your fallback image
+          document.getElementById("room-image").src = fallbackImageUrl;
+          // Handle error
+        });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const minusBtn = document.getElementById("minus-btn");
+        const plusBtn = document.getElementById("plus-btn");
+        const inputField = document.getElementById("quantity-input");
+
+        minusBtn.addEventListener("click", function () {
+          let currentValue = parseInt(inputField.value);
+          if (currentValue > 0) {
+            inputField.value = currentValue - 1;
+          }
+        });
+
+        plusBtn.addEventListener("click", function () {
+          let currentValue = parseInt(inputField.value);
+          inputField.value = currentValue + 1;
+        });
+      });
+    </script>
+  </body>
+</html>

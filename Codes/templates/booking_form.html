@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Form</title>
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="{{ url_for('static',filename='vendor/fontawesome-free/css/all.min.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+
+  <style>
+    .scrollable-dropdown {
+      max-height: 200px; /* Set the maximum height */
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin; /* For Firefox */
+      scrollbar-color: rgba(0, 0, 0, 0.5) rgba(255, 255, 255, 0.5); /* For Firefox */
+    }
+
+    /* For Chrome and Safari */
+    .scrollable-dropdown::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .scrollable-dropdown::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+    }
+
+    /* Open the scrollbar down */
+    .scrollable-dropdown::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+  </style>
+  <body>
+    {% include 'navbar.html' %}
+
+    <script>
+      // Get the URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      // Check if the 'neg_val' parameter exists and its value is 'True'
+      const max_val =
+        urlParams.has("max_val") &&
+        urlParams.get("max_val").toLowerCase() === "true";
+      if (max_val) {
+        document.write(`
+               
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                You have entered more members than permissible per room.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+         
+                `);
+
+        const urlWithoutmax_val = window.location.href.split("?")[0];
+        history.replaceState(null, null, urlWithoutmax_val);
+      }
+
+      const no_val_people =
+        urlParams.has("no_val_people") &&
+        urlParams.get("no_val_people").toLowerCase() === "true";
+      if (no_val_people) {
+        document.write(`
+               
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                You need to have atleast one person.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+         
+                `);
+
+        const urlWithoutno_val_people = window.location.href.split("?")[0];
+        history.replaceState(null, null, urlWithoutno_val_people);
+      }
+    </script>
+    <br />
+    <div class="container mt-5">
+      <div class="card border rounded p-4">
+        <h2 class="text-center mb-4">Booking Form</h2>
+        <form method="post" , action="/checkout">
+          <div class="form-row">
+            <div class="col">
+              <label for="check-in-date">Check-in Date</label>
+              <input
+                type="text"
+                class="form-control"
+                name="check_in"
+                value="{{ session['check_in'] }}"
+                id="check-in-date"
+                placeholder="Check-in Date"
+                readonly
+                required
+              />
+            </div>
+            <div class="col">
+              <label for="check-out-date">Check-out Date</label>
+              <input
+                type="text"
+                class="form-control"
+                name="check_out"
+                value="{{ session['check_out'] }}"
+                id="check-out-date"
+                placeholder="Check-out Date"
+                readonly
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Enter Name"
+              name="name"
+              required
+            />
+          </div>
+          <div class="form-group scrollable-dropdown">
+            <label for="country">Country</label>
+            <select class="form-control" id="country" name="country">
+              <option selected disabled>Select Country</option>
+              {% for country in country_vals %}
+              <option>{{country}}</option>
+              {% endfor %}
+              <!-- Add more country options here -->
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="col">
+              <label for="select_rooms" style="margin-right: 2%"
+                >Select Adults</label
+              >
+              <div class="input-group">
+                <!--padding: 2.5%;-->
+                <span class="input-group-prepend">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="minus-btn"
+                  >
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="adults"
+                  value="0"
+                  id="quantity-input"
+                  required
+                />
+                <span class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="plus-btn"
+                  >
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row mt-3">
+            <div class="col">
+              <label for="select_rooms" style="margin-right: 2%"
+                >Select Children</label
+              >
+              <div class="input-group">
+                <!--padding: 2.5%;-->
+                <span class="input-group-prepend">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="minus-btn1"
+                  >
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="children"
+                  value="0"
+                  id="quantity-input1"
+                  required
+                />
+                <span class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="plus-btn1"
+                  >
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="room_type">Room Type</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="room_type"
+              placeholder="Enter Name"
+              value="{{session['room_type']}}"
+              readonly
+              required
+            />
+          </div>
+
+          <div class="form-group scrollable-dropdown">
+            <label for="meal">Select Meal</label>
+            <select class="form-control" id="meal" name="meal">
+              <option selected disabled>Select your meal</option>
+              {% for meal in meal_vals %}
+              <option>{{meal}}</option>
+              {% endfor %}
+              <!-- Add more country options here -->
+            </select>
+          </div>
+          <input
+            type="hidden"
+            value="{{ max_guests }}"
+            name="max_guests"
+            required
+          />
+          <button
+            type="submit"
+            class="btn btn-primary mt-3"
+            style="margin-left: 45%"
+          >
+            Proceed
+          </button>
+        </form>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const minusBtn = document.getElementById("minus-btn");
+        const plusBtn = document.getElementById("plus-btn");
+        const inputField = document.getElementById("quantity-input");
+
+        minusBtn.addEventListener("click", function () {
+          let currentValue = parseInt(inputField.value);
+          if (currentValue > 0) {
+            inputField.value = currentValue - 1;
+          }
+        });
+
+        plusBtn.addEventListener("click", function () {
+          let currentValue = parseInt(inputField.value);
+          inputField.value = currentValue + 1;
+        });
+
+        const minusBtn1 = document.getElementById("minus-btn1");
+        const plusBtn1 = document.getElementById("plus-btn1");
+        const inputField1 = document.getElementById("quantity-input1");
+
+        minusBtn1.addEventListener("click", function () {
+          let currentValue = parseInt(inputField1.value);
+          if (currentValue > 0) {
+            inputField1.value = currentValue - 1;
+          }
+        });
+
+        plusBtn1.addEventListener("click", function () {
+          let currentValue = parseInt(inputField1.value);
+          inputField1.value = currentValue + 1;
+        });
+      });
+    </script>
+  </body>
+</html>

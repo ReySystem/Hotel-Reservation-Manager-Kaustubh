@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Reservation</title>
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* Reset CSS */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        height: 100vh;
+      }
+
+      .background-div {
+        background-image: url('{{ url_for("static", filename="Images/bg_image.jpeg") }}');
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 687px;
+        margin-top: -1.65%;
+        position: relative;
+        /* Add other styles as needed */
+      }
+
+      .container {
+        display: flex;
+        justify-content: center; /* Center content horizontally */
+        align-items: center; /* Center content vertically */
+        height: 80vh; /* Adjust this as needed */
+      }
+
+      .search-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0);
+        border-radius: 25px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      .date-input,
+      .room-type-select {
+        border: none;
+        padding: 15px;
+        outline: none;
+        font-size: 16px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .room-type-select {
+        width: 180px;
+        /* padding: 10px; */
+        background-color: #f8f9fa;
+        border: none;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .room-type-options {
+        display: none;
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        z-index: 1;
+      }
+
+      .room-type-options ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .room-type-options li {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .room-type-options li:last-child {
+        border-bottom: none;
+      }
+
+      .room-type-options li:hover {
+        background-color: #f0f0f0;
+      }
+
+      .search-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 0 25px 25px 0;
+        cursor: pointer;
+        outline: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .search-button:hover {
+        background-color: #0056b3;
+      }
+      input::placeholder {
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <br />
+    <div class="background-div">
+      <script>
+        // Get the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        // Check if the 'neg_val' parameter exists and its value is 'True'
+        const no_rooms =
+          urlParams.has("no_rooms") &&
+          urlParams.get("no_rooms").toLowerCase() === "true";
+        if (no_rooms) {
+          document.write(`
+               
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                Rooms for the selected date range are not available.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+         
+                `);
+
+          const urlWithoutno_rooms = window.location.href.split("?")[0];
+          history.replaceState(null, null, urlWithoutno_rooms);
+        }
+
+        const no_login =
+          urlParams.has("no_login") &&
+          urlParams.get("no_login").toLowerCase() === "true";
+
+        if (no_login) {
+          document.write(`
+               
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                You have to login/signup to perform the booking.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+         
+                `);
+
+          const urlWithoutno_login = window.location.href.split("?")[0];
+          history.replaceState(null, null, urlWithoutno_login);
+        }
+      </script>
+      {% if pay_success %}
+      <div
+        class="alert alert-success alert-dismissible fade show"
+        role="alert"
+        id="autoCloseAlert"
+      >
+        Your booking has been confirmed.
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endif %}
+      <div class="container">
+        <form action="/rooms" method="POST">
+          <div class="search-container">
+            <input
+              type="text"
+              class="date-input"
+              id="checkin-date"
+              name="checkin"
+              placeholder="Check-In Date"
+              style="background-color: rgba(255, 255, 255, 0.6); font-size: 30"
+              required
+            />
+            <input
+              type="text"
+              class="date-input"
+              id="checkout-date"
+              name="checkout"
+              placeholder="Check-Out Date"
+              style="background-color: rgba(255, 255, 255, 0.6); font-size: 30"
+              required
+            />
+            <select
+              name="room_type"
+              class="room-type-select"
+              style="
+                background-color: rgba(255, 255, 255, 0.6);
+                font-size: 30;
+                padding-top: 17px;
+                padding-bottom: 17px;
+              "
+              required
+            >
+              <option value="">Room Type</option>
+              {% for room in room_types %}
+              <option value="{{room['Room Type']}}">
+                {{room['Room Type']}}
+              </option>
+              {% endfor %}
+            </select>
+            <!-- </div> -->
+            <button type="submit" class="search-button">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Load jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Initialize Datepicker -->
+    <script>
+      $(function () {
+        var today = new Date();
+        var ninetyDaysLater = new Date(today);
+        ninetyDaysLater.setDate(today.getDate() + 89);
+
+        $("#checkin-date").datepicker({
+          dateFormat: "yy-mm-dd",
+          minDate: today,
+          maxDate: ninetyDaysLater,
+          onSelect: function (selectedDate) {
+            var endDate = $(this).datepicker("getDate");
+            endDate.setDate(endDate.getDate() + 1);
+            $("#checkout-date").datepicker("option", "minDate", endDate);
+          },
+        });
+
+        $("#checkout-date").datepicker({
+          dateFormat: "yy-mm-dd",
+          minDate: today,
+          maxDate: ninetyDaysLater,
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout Form</title>
+    {% include 'navbar.html' %}
+    <br />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      .checkout-form {
+        border: 1px solid #ced4da;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="checkout-form">
+        <form action="/process_payment" method="post">
+          <h2 class="mb-4" style="text-align: center">Checkout Details</h2>
+          <div class="form-group">
+            <label for="checkin">Check-in Date:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="checkin"
+              name="check_in"
+              value="{{ checkin }}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="checkout">Check-out Date:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="checkout"
+              name="check_out"
+              value="{{ checkout }}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              value="{{ name }}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="country">Country:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="country"
+              name="country"
+              value="{{ country }}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="adults">Adults:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="adults"
+              name="adults"
+              value="{{ adults }}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="children">Children:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="children"
+              name="children"
+              value="{{ children }}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="room_type">Room Type:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="room_type"
+              name="room_type"
+              value="{{ room_type }}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="meal_type">Meal Type:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="meal_type"
+              name="meal"
+              value="{{ meal_type }}"
+              readonly
+            />
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">
+            Proceed To Payment
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

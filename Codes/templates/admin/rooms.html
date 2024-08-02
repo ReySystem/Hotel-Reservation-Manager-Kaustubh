@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rooms Table</title>
+    <!-- DataTables CSS -->
+
+    <!-- Custom fonts for this template-->
+    <link
+      href="{{ url_for('static',filename='vendor/fontawesome-free/css/all.min.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template-->
+    <link
+      href="{{ url_for('static',filename='css/sb-admin-2.min.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      href="{{ url_for('static',filename='vendor/datatables/dataTables.bootstrap4.min.css') }}"
+      rel="stylesheet"
+    />
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css"> -->
+
+    <style>
+      #loader {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.7);
+        z-index: 9999;
+        display: none;
+      }
+
+      .loader-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        color: #333;
+      }
+
+      .search_bar {
+        text-align: center;
+      }
+
+      .search_bar .search_ip {
+        height: calc(1.5em + 0.5rem + 2px);
+        padding: 1.1rem 0.5rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        border-radius: 0.2rem;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #d1d3e2;
+      }
+
+      .dataTables_filter {
+        display: none;
+      }
+
+      .add-btn {
+        background-color: #28a745; /* Green color */
+        color: white; /* Text color */
+        border: none; /* Remove border */
+        padding: 10px 20px; /* Adjust padding */
+        font-size: 16px; /* Adjust font size */
+        border-radius: 5px; /* Rounded corners */
+        transition: background-color 0.3s; /* Smooth transition */
+        margin-top: 2%;
+      }
+
+      .add-btn:hover {
+        background-color: #218838; /* Darker green color on hover */
+      }
+
+      .bootstrap-tagsinput .tag {
+        color: black !important;
+      }
+      .badge {
+        padding: 0.5em 0.6em;
+      }
+    </style>
+  </head>
+  <body id="page-top">
+    <div id="loader">
+      <div class="loader-text">Loading...</div>
+    </div>
+
+    <div id="wrapper">
+      <!-- Sidebar -->
+      {% include 'admin/sidebar.html' %}
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          {% include 'admin/navbar_admin.html' %}
+          <!-- Topbar -->
+          <div class="container-fluid">
+            <script>
+              // Get the URL parameters
+              const urlParams = new URLSearchParams(window.location.search);
+              // Check if the 'neg_val' parameter exists and its value is 'True'
+              const negVal =
+                urlParams.has("neg_val_error") &&
+                urlParams.get("neg_val_error").toLowerCase() === "true";
+
+              if (negVal) {
+                document.write(`
+                                <div class="alert alert-danger" role="alert">
+                                    The availability of rooms for a date cannot be negative.
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            `);
+                // Remove the 'neg_val' parameter from the URL
+                const urlWithoutNegVal = window.location.href.split("?")[0];
+                history.replaceState(null, null, urlWithoutNegVal);
+              }
+
+              // Check if the 'neg_val' parameter exists and its value is 'True'
+              const addRoom =
+                urlParams.has("addRoom") &&
+                urlParams.get("addRoom").toLowerCase() === "true";
+              if (addRoom) {
+                document.write(`
+                           
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                            Room Added Successfully.
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                     
+                            `);
+
+                const urlWithoutaddRoom = window.location.href.split("?")[0];
+                history.replaceState(null, null, urlWithoutaddRoom);
+              }
+
+              // Check if the 'neg_val' parameter exists and its value is 'True'
+              const updRoom =
+                urlParams.has("updRoom") &&
+                urlParams.get("updRoom").toLowerCase() === "true";
+              if (updRoom) {
+                document.write(`
+                           
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                            Room Details updated Successfully.
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                     
+                            `);
+
+                const urlWithoutupdRoom = window.location.href.split("?")[0];
+                history.replaceState(null, null, urlWithoutupdRoom);
+              }
+
+              // Check if the 'neg_val' parameter exists and its value is 'True'
+              const delRoom =
+                urlParams.has("delRoom") &&
+                urlParams.get("delRoom").toLowerCase() === "true";
+              if (delRoom) {
+                document.write(`
+                           
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                            Room deleted Successfully.
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                     
+                            `);
+
+                const urlWithoutdelRoom = window.location.href.split("?")[0];
+                history.replaceState(null, null, urlWithoutdelRoom);
+              }
+            </script>
+            <!-- Page Heading -->
+            <div
+              class="d-sm-flex align-items-center justify-content-between mb-4"
+            >
+              <h1 class="h3 mb-0 text-gray-800" style="margin-top: 2%">
+                Rooms Table
+              </h1>
+
+              <button class="add-btn" id="add-btn">
+                <i class="fas fa-plus"></i> Add Room
+              </button>
+            </div>
+
+            <div class="search_bar">
+              <form action="/admin/rooms" method="POST">
+                <input
+                  type="text"
+                  id="query"
+                  name="search_query_user"
+                  class="search_ip"
+                  required
+                />
+                <button type="submit" class="btn btn-primary">Search</button>
+              </form>
+            </div>
+            <br />
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered"
+                    id="dataTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Room Type</th>
+                        <th>Price</th>
+                        <th>Beds</th>
+                        <th>Utilities</th>
+                        <th>Maximum Rooms</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th>Room Type</th>
+                        <th>Price</th>
+                        <th>Beds</th>
+                        <th>Utilities</th>
+                        <th>Maximum Rooms</th>
+                        <th>Actions</th>
+                      </tr>
+                    </tfoot>
+                    <tbody>
+                      {% for room in rooms %}
+                      <tr>
+                        <td>{{ room['Room Type']}}</td>
+                        <td>{{ room.price }}</td>
+                        <td>
+                          {% for bed in room['Beds'].split(',') %}
+                          <span class="badge badge-primary">{{ bed }}</span>
+                          {% endfor %}
+                        </td>
+                        <!-- <td>{{ room['Beds']}}</td> -->
+                        <td>
+                          {% for util in room['Utilities'].split(',') %}
+                          <span class="badge badge-primary">{{ util }}</span>
+                          {% endfor %}
+                        </td>
+                        <td>{{room['Maximum Rooms']}}</td>
+                        <td>
+                          <a
+                            href="#"
+                            class="update-btn"
+                            data-toggle="modal"
+                            data-target="#updateRoom"
+                            data-room="{{ room['Room Type'] }}"
+                            data-price="{{ room['price'] }}"
+                            data-bed="{{ room['Beds'] }}"
+                            data-util="{{ room['Utilities'] }}"
+                            data-count="{{ room['Maximum Rooms'] }}"
+                            ><button
+                              type="button"
+                              class="btn btn-primary"
+                              style="margin-bottom: 5%"
+                            >
+                              Update
+                            </button></a
+                          >
+                          <a
+                            href="#"
+                            class="delete-btn"
+                            data-toggle="modal"
+                            data-target="#deleteRoom"
+                            data-room="{{ room['Room Type'] }}"
+                            ><button
+                              type="button"
+                              class="btn btn-danger"
+                              style="padding-left: 16%; padding-right: 16%"
+                            >
+                              Delete
+                            </button></a
+                          >
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="deleteRoom"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete Room</h5>
+              <button
+                class="close"
+                type="button"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">Are you sure to delete this Room?</div>
+            <div class="modal-footer">
+              <button
+                class="btn btn-secondary"
+                type="button"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <form id="deleteForm" method="post" action="/delete_room">
+                <input type="hidden" name="room_type" id="roomInput" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="updateRoom"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update Room</h5>
+              <button
+                class="close"
+                type="button"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <form id="updateForm" method="post" action="/update_room">
+              <div class="modal-body">
+                <div class="form-group row">
+                  <label
+                    for="roomInput_upd_name"
+                    class="col-sm-2 col-form-label"
+                    >Room Type</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="room_type"
+                      id="roomInput_upd_name"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="room_price" class="col-sm-2 col-form-label"
+                    >Price</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="room_price"
+                      id="roomprice"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="room_beds" class="col-sm-2 col-form-label"
+                    >Beds</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="room_beds"
+                      id="roombeds_update"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="room_utilities" class="col-sm-2 col-form-label"
+                    >Utilities</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="room_utilities"
+                      id="roomutilities_update"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="room_counts" class="col-sm-2 col-form-label"
+                    >Maximum Rooms</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="room_counts"
+                      id="roomcounts_update"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  class="btn btn-secondary"
+                  type="button"
+                  data-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <input type="hidden" name="room_type_old" id="roomInput_old" />
+                <input type="hidden" name="max_room_old" id="maxRoom_old" />
+                <button type="submit" class="btn btn-primary">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="addRoom"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Room</h5>
+              <button
+                class="close"
+                type="button"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <form id="addForm" method="post" action="/add_room">
+              <div class="modal-body">
+                <div class="form-group row">
+                  <label for="room_type" class="col-sm-2 col-form-label"
+                    >Room Type</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="room_type"
+                      id="roomInput_add_name"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="room_price" class="col-sm-2 col-form-label"
+                    >Price</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="room_price"
+                      id="roomprice_add"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="room_beds" class="col-sm-2 col-form-label"
+                    >Beds</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="room_beds"
+                      id="roombeds_add"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="room_utilities" class="col-sm-2 col-form-label"
+                    >Utilities</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="room_utilities"
+                      id="roomutilities_add"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="room_counts" class="col-sm-2 col-form-label"
+                    >Maximum Rooms</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="room_counts"
+                      id="room_counts_add"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  class="btn btn-secondary"
+                  type="button"
+                  data-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DataTables JS -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='vendor/jquery/jquery.min.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"
+    ></script>
+
+    <!-- Core plugin JavaScript-->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='vendor/jquery-easing/jquery.easing.min.js') }}"
+    ></script>
+
+    <!-- Custom scripts for all pages-->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='js/sb-admin-2.min.js') }}"
+    ></script>
+
+    <!-- Page level plugins -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='vendor/datatables/jquery.dataTables.min.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"
+    ></script>
+
+    <!-- Page level custom scripts -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='js/demo/datatables-demo.js') }}"
+    ></script>
+
+    <script>
+      $("#loader").show();
+      $(document).ready(function () {
+        $("#dataTable").DataTable({
+          initComplete: function (settings, json) {
+            $("#loader").hide();
+          },
+        });
+
+        // Event delegation for dynamically generated delete buttons
+        $("#dataTable").on("click", ".delete-btn", function () {
+          var room = $(this).data("room");
+          $("#roomInput").val(room); // Set the value of the hidden input
+          // $('#deleteForm').attr('action', '/delete_user/' + username);
+        });
+
+        $("#dataTable").on("click", ".update-btn", function () {
+          var room = $(this).data("room");
+          var price = $(this).data("price"); // Corrected attribute name
+          var bed = $(this).data("bed");
+          var util = $(this).data("util");
+          var count = $(this).data("count");
+
+          $("#maxRoom_old").val(count);
+          $("#roomInput_old").val(room);
+          $("#roomInput_upd_name").val(room);
+          $("#roombeds_update").val(bed);
+          $("#roomutilities_update").val(util);
+          $("#roomcounts_update").val(count);
+
+          $("#roomprice").val(price); // Set the value of the price input
+        });
+
+        function openAddRoomModal() {
+          $("#addRoom").modal("show"); // Show the modal
+        }
+
+        // Call the function to open the modal when button is clicked
+        document
+          .getElementById("add-btn")
+          .addEventListener("click", openAddRoomModal);
+      });
+    </script>
+  </body>
+</html>

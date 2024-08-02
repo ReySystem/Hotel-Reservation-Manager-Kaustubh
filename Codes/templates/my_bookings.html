@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Bookings</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Custom CSS -->
+    <style>
+      /* Navbar styling */
+      .navbar {
+        position: fixed;
+        top: 0;
+        right: 0; /* Shift navbar to the right */
+        width: calc(100% - 250px); /* Adjusted width to accommodate sidebar */
+        z-index: 1000; /* Ensure navbar is above sidebar */
+      }
+      /* Sidebar styling */
+      .sidebar {
+        height: 100%;
+        width: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #4e73df;
+        padding-top: 60px;
+      }
+      /* Page content styling */
+      .content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+
+      /* DataTables styling */
+      #bookingTable_wrapper {
+        padding: 20px;
+      }
+      #bookingTable {
+        width: 100%;
+      }
+      #bookingTable th,
+      #bookingTable td {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="sidebar col-md-3">
+          <nav class="nav flex-column">
+            <a class="nav-link active" href="/my_bookings" style="color: white"
+              >Bookings</a
+            >
+            <a class="nav-link" href="/update_password" style="color: white"
+              >Update Info</a
+            >
+          </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="col-md-9">
+          <!-- Navbar -->
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+              <!-- Navbar brand/logo -->
+
+              <!-- Navbar links -->
+              <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="/">Home</a>
+                <a class="nav-item nav-link" href="#">About Us</a>
+                <a class="nav-item nav-link" href="#">Rooms</a>
+                <a class="nav-item nav-link" href="#">Menu</a>
+              </div>
+
+              <!-- Hello, username span -->
+              {% if 'username' in session %}
+              <span class="navbar-text ml-auto mr-3"
+                >Hello, {{ session['username'] }}</span
+              >
+              <a href="logout" class="btn btn-outline-success">Logout</a>
+              {% else %}
+              <a href="login" class="btn btn-outline-success mr-2">Login</a>
+              <a href="signup" class="btn btn-outline-success">Signup</a>
+              {% endif %}
+            </div>
+          </nav>
+        </div>
+        <div class="content mt-5">
+          <!-- Main content -->
+
+          <script>
+            // Get the URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            // Check if the 'neg_val' parameter exists and its value is 'True'
+            const updBook =
+              urlParams.has("updBook") &&
+              urlParams.get("updBook").toLowerCase() === "true";
+            if (updBook) {
+              document.write(`
+                                
+                            <div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                                Your booking dates have been successfully verified.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            
+                                `);
+
+              const urlWithoutupdBook = window.location.href.split("?")[0];
+              history.replaceState(null, null, urlWithoutupdBook);
+            }
+
+            // Check if the 'neg_val' parameter exists and its value is 'True'
+            const no_dates =
+              urlParams.has("no_dates") &&
+              urlParams.get("no_dates").toLowerCase() === "true";
+            if (no_dates) {
+              document.write(`
+                           
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                            Rooms for the selected date range are not available.
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                     
+                            `);
+
+              const urlWithoutno_dates = window.location.href.split("?")[0];
+              history.replaceState(null, null, urlWithoutno_dates);
+            }
+
+            // Check if the 'neg_val' parameter exists and its value is 'True'
+            const delYes =
+              urlParams.has("delYes") &&
+              urlParams.get("delYes").toLowerCase() === "true";
+            if (delYes) {
+              document.write(`
+                           
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="autoCloseAlert">
+                            Your booking has been deleted successfully.
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                     
+                            `);
+
+              const urlWithoutdelYes = window.location.href.split("?")[0];
+              history.replaceState(null, null, urlWithoutdelYes);
+            }
+          </script>
+          <!-- Your content goes here -->
+          <h1>My Bookings</h1>
+          <table
+            id="bookingTable"
+            class="table table-bordered"
+            style="width: fit-content"
+          >
+            <thead>
+              <tr>
+                <th>Room Type</th>
+                <th>Adults</th>
+                <th>Children</th>
+                <th>Total People</th>
+                <th>Check-in Date</th>
+                <th>Check-out Date</th>
+                <th>Meals</th>
+                <th>Reservation Status</th>
+                <th>Total Price</th>
+                <th>Actions</th>
+                <!-- Add more columns as needed -->
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Room Type</th>
+                <th>Adults</th>
+                <th>Children</th>
+                <th>Total People</th>
+                <th>Check-in Date</th>
+                <th>Check-out Date</th>
+                <th>Meals</th>
+                <th>Reservation Status</th>
+                <th>Total Price</th>
+                <th>Actions</th>
+                <!-- Add more columns as needed -->
+              </tr>
+            </tfoot>
+            <tbody>
+              {% for data in total_user_data %}
+              <tr>
+                <td>{{ data['Reserved Room Type'] }}</td>
+                <td>{{ data['adults'] }}</td>
+                <td>{{ data['children'] }}</td>
+                <td>{{ data['Total People'] }}</td>
+                <td>{{ data['check_in'] }}</td>
+                <td>{{ data['check_out'] }}</td>
+                <td>{{ data['Meals'] }}</td>
+                <td>{{ data['reservation_status'] }}</td>
+                <td>{{ data['Price'] }}</td>
+                {% if data['reservation_status'] == 'Reserved' and
+                data['upd_del_flag'] %}
+                <td>
+                  <div class="btn-group">
+                    <a
+                      href="#"
+                      class="update-btn-date"
+                      data-toggle="modal"
+                      data-target="#updateDate"
+                      data-checkin="{{ data['check_in'] }}"
+                      data-checkout="{{  data['check_out'] }}"
+                      data-rtype="{{ data['Reserved Room Type'] }}"
+                      data-bid="{{ data['_id'] }}"
+                      data-cin="{{ data['check_in'] }}"
+                      data-cout="{{ data['check_out'] }}"
+                      data-total="{{ data['Total People'] }}"
+                      ><button type="button" class="btn btn-primary mr-2">
+                        Update
+                      </button></a
+                    >
+                    <a
+                      href="#"
+                      class="delete-btn"
+                      data-toggle="modal"
+                      data-target="#deleteBooking"
+                      data-checkin="{{ data['check_in'] }}"
+                      data-checkout="{{  data['check_out'] }}"
+                      data-bid="{{ data['_id'] }}"
+                      data-rtype="{{ data['Reserved Room Type'] }}"
+                      data-total="{{ data['Total People'] }}"
+                      ><button type="button" class="btn btn-danger">
+                        Delete
+                      </button></a
+                    >
+                  </div>
+                </td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                <!-- Add more columns as needed -->
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="updateDate"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Update Booking Dates
+            </h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div id="alertContainer" class="modal-alert"></div>
+          <form id="updateForm" method="post" action="/update_date">
+            <div class="modal-body">
+              <div class="form-group row">
+                <label for="mealInput_upd_name" class="col-sm-2 col-form-label"
+                  >Check-in Date</label
+                >
+                <div class="col-sm-5">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="check_in"
+                    id="check-in-upd"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="meal_price" class="col-sm-2 col-form-label"
+                  >Check-out Date</label
+                >
+                <div class="col-sm-5">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="check_out"
+                    id="check-out-upd"
+                  />
+                  <input
+                    type="hidden"
+                    class="form-control"
+                    name="room_type"
+                    id="rtype-update"
+                  />
+                  <input
+                    type="hidden"
+                    class="form-control"
+                    name="booking_id"
+                    id="bid-update"
+                  />
+                  <input
+                    type="hidden"
+                    class="form-control"
+                    name="check_in_old"
+                    id="cin-update-old"
+                  />
+                  <input
+                    type="hidden"
+                    class="form-control"
+                    name="check_out_old"
+                    id="cout-update-old"
+                  />
+                  <input
+                    type="hidden"
+                    class="form-control"
+                    name="total_people_count"
+                    id="total-update"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                class="btn btn-secondary"
+                type="button"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary" id="updateButton">
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="deleteBooking"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete Booking</h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Are you sure to delete this Booking?</div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <form id="deleteForm" method="post" action="/delete_booking">
+              <input type="hidden" name="booking_id" id="bid_delete" />
+              <input type="hidden" name="check_in" id="cin_delete" />
+              <input type="hidden" name="check_out" id="cout_delete" />
+              <input type="hidden" name="room_type" id="room_type" />
+              <input type="hidden" name="total_people" id="total_people" />
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap JS, jQuery and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#bookingTable").DataTable();
+
+        $("#bookingTable").on("click", ".update-btn-date", function () {
+          var checkin = $(this).data("checkin");
+          var checkout = $(this).data("checkout");
+          var rtype = $(this).data("rtype");
+          var bid = $(this).data("bid");
+          var cin_old = $(this).data("cin");
+          var cout_old = $(this).data("cout");
+          var total = $(this).data("total");
+
+          $("#check-in-upd").val(checkin);
+          $("#rtype-update").val(rtype);
+          $("#bid-update").val(bid);
+          $("#check-out-upd").val(checkout);
+          $("#cin-update-old").val(cin_old);
+          $("#cout-update-old").val(cout_old);
+          $("#total-update").val(total);
+        });
+
+        $("#updateButton").click(function () {
+          var checkin = $("#check-in-upd").val();
+          var checkout = $("#check-out-upd").val();
+          var regex = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/;
+          var currentDate = new Date();
+          var currentYear = currentDate.getFullYear();
+          currentDate.setHours(0, 0, 0, 0); // Set current date to midnight
+
+          // Parse the check-in and check-out dates
+          var checkinDateParts = checkin.split("-");
+          var checkoutDateParts = checkout.split("-");
+          var checkinDate = new Date(
+            checkinDateParts[2],
+            checkinDateParts[1] - 1,
+            checkinDateParts[0]
+          );
+          var checkoutDate = new Date(
+            checkoutDateParts[2],
+            checkoutDateParts[1] - 1,
+            checkoutDateParts[0]
+          );
+
+          // Check if the dates are in dd-mm-yyyy format and the year is less than or equal to the current year
+          if (!regex.test(checkin) || !regex.test(checkout)) {
+            $("#alertContainer").html(
+              '<div class="alert alert-danger alert-dismissible fade show" role="alert">Check-in and Check-out dates must be in dd-mm-yyyy format!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+            );
+            return false; // Prevent the form submission
+          } else if (checkinDate >= checkoutDate) {
+            $("#alertContainer").html(
+              '<div class="alert alert-danger alert-dismissible fade show" role="alert">Check-out date must be greater than Check-in date!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+            );
+            return false; // Prevent the form submission
+          } else if (checkinDate < currentDate) {
+            $("#alertContainer").html(
+              '<div class="alert alert-danger alert-dismissible fade show" role="alert">Check-in and Check-out dates cannot be in the past!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+            );
+            return false; // Prevent the form submission
+          } else if (
+            checkinDate.getFullYear() > currentYear ||
+            checkoutDate.getFullYear() > currentYear
+          ) {
+            $("#alertContainer").html(
+              '<div class="alert alert-danger alert-dismissible fade show" role="alert">Check-in and Check-out dates cannot be in the future!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+            );
+            return false; // Prevent the form submission
+          } else {
+            $("#alertContainer").html(""); // Clear the alert container if the format is correct
+          }
+        });
+
+        // Event delegation for dynamically generated delete buttons
+        $("#bookingTable").on("click", ".delete-btn", function () {
+          var bid = $(this).data("bid");
+          var checkin = $(this).data("checkin");
+          var checkout = $(this).data("checkout");
+          var rtype = $(this).data("rtype");
+          var total_people = $(this).data("total");
+
+          $("#bid_delete").val(bid);
+          $("#cin_delete").val(checkin);
+          $("#cout_delete").val(checkout);
+          $("#room_type").val(rtype);
+          $("#total_people").val(total_people);
+        });
+      });
+    </script>
+  </body>
+</html>

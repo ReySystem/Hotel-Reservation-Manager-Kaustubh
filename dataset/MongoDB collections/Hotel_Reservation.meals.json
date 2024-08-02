@@ -1,0 +1,20 @@
+[{
+  "_id": 1,
+  "Meal Type": "Bed & Breakfast",
+  "price": 25
+},
+{
+  "_id": 2,
+  "Meal Type": "Half Board",
+  "price": 46
+},
+{
+  "_id": 3,
+  "Meal Type": "No Meal",
+  "price": 0
+},
+{
+  "_id": 4,
+  "Meal Type": "Full Board",
+  "price": 65
+}]

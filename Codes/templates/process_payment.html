@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Form</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        display: flex; /* Use flexbox for layout */
+        justify-content: space-between; /* Space out the elements */
+        align-items: center; /* Vertically center the elements */
+        margin: 0; /* Remove default margin */
+        padding: 20px; /* Add padding for spacing */
+      }
+
+      .test-product {
+        font-size: 24px;
+        margin-left: 25%;
+      }
+
+      .price {
+        font-weight: bold;
+        font-size: 32px;
+      }
+
+      .payment-form {
+        width: 400px;
+        height: 500px;
+        border: 1px solid #ccc;
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 5%;
+        margin-right: 25%;
+      }
+
+      .pay-with-link,
+      .pay-with-card,
+      .terms a {
+        color: teal;
+        text-decoration: none;
+      }
+
+      .or,
+      .pay-with-card {
+        text-align: center;
+        margin: 10px 0;
+      }
+
+      input[type="email"],
+      input[type="text"],
+      input[type="submit"] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+
+      .save-info {
+        margin: 10px 0;
+      }
+
+      #save-info {
+        margin-right: 5px;
+      }
+
+      button {
+        background-color: blue;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      button:hover {
+        background-color: darkblue;
+      }
+
+      .terms {
+        font-size: 12px;
+        text-align: center;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test-product">
+      Bill Amount
+      <div class="price">${{ total_price }}</div>
+    </div>
+    <div class="payment-form">
+      <form action="/" method="post">
+        <input type="email" placeholder="Email" required />
+        <input type="text" placeholder="Card information" required />
+        <input type="text" placeholder="MM / YY" required />
+        <input type="text" placeholder="CVC" required />
+        <input type="text" placeholder="Cardholder name" required />
+        <input type="text" placeholder="ZIP" required />
+        <div class="save-info">
+          <input type="checkbox" id="save-info" />
+          <label for="save-info"
+            >Save my info for 1-click checkout with Link</label
+          >
+        </div>
+
+        <div class="form-group">
+          <input
+            type="hidden"
+            class="form-control"
+            id="checkin"
+            name="check_in"
+            value="{{ checkin }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="hidden"
+            class="form-control"
+            id="checkout"
+            name="check_out"
+            value="{{ checkout }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="hidden"
+            class="form-control"
+            id="name"
+            name="name"
+            value="{{ name }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="hidden"
+            class="form-control"
+            id="country"
+            name="country"
+            value="{{ country }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="hidden"
+            class="form-control"
+            id="adults"
+            name="adults"
+            value="{{ adults }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="hidden"
+            class="form-control"
+            id="children"
+            name="children"
+            value="{{ children }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="hidden"
+            class="form-control"
+            id="room_type"
+            name="room_type"
+            value="{{ room_type }}"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="hidden"
+            class="form-control"
+            id="meal_type"
+            name="meal"
+            value="{{ meal_type }}"
+            readonly
+          />
+        </div>
+
+        <button type="submit">Pay</button>
+      </form>
+      <div class="terms">
+        By clicking Pay, you agree to Link's <a href="#">terms</a> and
+        <a href="#">privacy policy</a>.
+      </div>
+    </div>
+  </body>
+</html>
