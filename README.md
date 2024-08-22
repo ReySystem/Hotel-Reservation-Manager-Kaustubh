@@ -29,7 +29,7 @@
 
 Clone the repository to your local directory by entering the following command:
   ```sh
-  git clone "https://github.com/AnshumanMohanty-2001/Unveiling-Insights-through-Data-driven-Exploration-of-Cricket-World-Cup-2023.git"
+  git clone ""
   ```
 
 <br>
